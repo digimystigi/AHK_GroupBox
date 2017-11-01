@@ -39,13 +39,35 @@ GroupBox(GBvName			;Name for GroupBox control variable
 		,Margin				;Margin in pixels around the controls
 		,Piped_CtrlvNames	;Pipe (|) delimited list of Controls
 		,FixedWidth=""		;Optional fixed width
-		,FixedHeight="")	;Optional fixed height
+		,FixedHeight=""		;Optional fixed height
+		,Kin=true)
 {
 	Local maxX, maxY, minX, minY, xPos, yPos ;all else assumed Global
 	minX:=99999
 	minY:=99999
 	maxX:=0
 	maxY:=0
+
+	;; Start of new code
+	static GBArray := Object()
+	GBArray.Insert(GBvName)
+	GBArray%GBvName% := Piped_CtrlvNames
+
+	If Kin
+	{
+		PCNInclude =
+		Loop, Parse, Piped_CtrlvNames, |, %A_Space%
+		{
+			i := A_LoopField
+			For index, element in GBArray
+				If i = %element%
+					PCNInclude := PCNInclude "|" GBArray%i%
+		}
+	}
+
+	Piped_CtrlvNames := Piped_CtrlvNames PCNInclude
+	;; End of new code
+
 	Loop, Parse, Piped_CtrlvNames, |, %A_Space%
 	{
 		;Get position and size of each control in list.

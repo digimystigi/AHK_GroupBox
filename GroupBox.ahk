@@ -44,10 +44,7 @@ GroupBox(GBvName			;Name for GroupBox control variable
 		,Kin=true)
 {
 	Local maxX, maxY, minX, minY, xPos, yPos ;all else assumed Global
-	minX:=99999
-	minY:=99999
-	maxX:=0
-	maxY:=0
+	minX:=99999, minY:=99999, maxX:=0, maxY:=0
 
 	;; Start of new code
 	static GBArray := Object()
@@ -74,15 +71,10 @@ GroupBox(GBvName			;Name for GroupBox control variable
 		;Get position and size of each control in list.
 		GuiControlGet, GB, Pos, %A_LoopField%
 		;creates GBX, GBY, GBW, GBH
-		if(GBX<minX) ;check for minimum X
-			minX:=GBX
-		if(GBY<minY) ;Check for minimum Y
-			minY:=GBY
-		if(GBX+GBW>maxX) ;Check for maximum X
-			maxX:=GBX+GBW
-		if(GBY+GBH>maxY) ;Check for maximum Y
-			maxY:=GBY+GBH
-		;MsgBox % A_LoopField
+		minX := GBX<minX ? GBX : minX ;check for minimum X
+		minY := GBY<minY ? GBY : minY ;Check for minimum Y
+		maxX := GBX+GBW>maxX ? GBX+GBW : maxX ;Check for maximum X
+		maxY := GBY+GBH>maxY ? GBY+GBH : maxY ;Check for maximum Y
 
 		;Move the control to make room for the GroupBox
 		xPos:=GBX+Margin
@@ -90,14 +82,8 @@ GroupBox(GBvName			;Name for GroupBox control variable
 		GuiControl, Move, %A_LoopField%, x%xPos% y%yPos%
 	}
 	;re-purpose the GBW and GBH variables
-	if(FixedWidth)
-		GBW:=FixedWidth
-	else
-		GBW:=maxX-minX+2*Margin ;calculate width for GroupBox
-	if(FixedHeight)
-		GBH:=FixedHeight
-	else
-		GBH:=maxY-MinY+TitleHeight+2*Margin ;calculate height for GroupBox ;fixed 2*margin
+	GBW := FixedWidth ? FixedWidth : maxX-minX+2*Margin ;calculate width for GroupBox
+	GBH := FixedHeight ? FixedHeight : maxY-MinY+TitleHeight+2*Margin ;calculate height for GroupBox ;fixed 2*margin
 
 	;Add the GroupBox
 	Gui, Add, GroupBox, v%GBvName% x%minX% y%minY% w%GBW% h%GBH%, %Title%

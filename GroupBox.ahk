@@ -36,9 +36,9 @@
 
 GroupBox(GBvName			;Name for GroupBox control variable
 		,Title				;Title for GroupBox
-		,TitleHeight		;Height in pixels to allow for the Title
-		,Margin				;Margin in pixels around the controls
 		,Piped_CtrlvNames	;Pipe (|) delimited list of Controls
+		,Margin=10			;Margin in pixels around the controls
+		,TitleHeight=10		;Height in pixels to allow for the Title
 		,FixedWidth=""		;Optional fixed width
 		,FixedHeight=""		;Optional fixed height
 		,Kin=true)
@@ -53,17 +53,29 @@ GroupBox(GBvName			;Name for GroupBox control variable
 
 	If Kin
 	{
-		PCNInclude =
-		Loop, Parse, Piped_CtrlvNames, |, %A_Space%
+		/*doneExpanding := true
+		Loop
 		{
-			i := A_LoopField
-			For index, element in GBArray
-				If i = %element%
-					PCNInclude := PCNInclude "|" GBArray%i%
-		}
+		*/
+			PCNInclude =
+			Loop, Parse, Piped_CtrlvNames, |, %A_Space%
+			{
+				i := A_LoopField
+				For index, element in GBArray
+				{
+					If i = %element%
+					{
+						PCNInclude := PCNInclude "|" GBArray%i%
+						doneExpanding := false
+						MsgBox % "PCN: " PCNInclude
+					}
+				}
+			}
+			Piped_CtrlvNames := Piped_CtrlvNames PCNInclude
+			MsgBox % "Piped: " Piped_CtrlvNames
+		;} Until doneExpanding
 	}
 
-	Piped_CtrlvNames := Piped_CtrlvNames PCNInclude
 	;; End of new code
 
 	Loop, Parse, Piped_CtrlvNames, |, %A_Space%

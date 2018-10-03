@@ -7,16 +7,16 @@ For instance:
 
 sets the default Gui to Gui 2.
 
-Function definition:
-<code>GroupBox(GBvName		;Name for GroupBox control variable
+Function definition:<code>
+	GroupBox(GBvName		;Name for GroupBox control variable
 	,Title			;Title for GroupBox
 	,TitleHeight		;Height in pixels to allow for the Title
 	,Margin			;Margin in pixels around the controls
 	,Piped_CtrlvNames	;Pipe (|) delimited list of Controls
 	,FixedWidth=""		;Optional fixed width
 	,FixedHeight=""		;Optional fixed height
-	,Kin=true)		;Optional include or exclude children of other included GroupBoxes</code>
-
+	,Kin=true)		;Optional include or exclude children of other included GroupBoxes
+</code>
 Add the controls you want in the GroupBox to the Gui using
 the "v" option to assign a variable name to each control. *
 Then immediately after the last control for the group

@@ -25,9 +25,9 @@ is added call this function. It will add a GroupBox and
 wrap it around the controls.
 
 Example:
-<pre>Gui, Add, Text, vControl1, This is Control 1		;Add named Text field
+<pre>Gui, Add, Text, vControl1, This is Control 1			;Add named Text field
 Gui, Add, Text, vControl2 x+30, This is Control 2		;Add another named Text field
-GroupBox("GB1", "Testing", 20, 10, "Control1|Control2")	;Create GB around "variables" Control1 and Control2 listed above
+GroupBox("GB1", "Testing", 20, 10, "Control1|Control2")		;Create GB around "variables" Control1 and Control2 listed above
 Gui, Add, Text, Section xMargin, This is Control 3		;Add an unnamed Text field
 GroupBox("GB2", "Another Test", 10, 10, "This is Control 3")	;Wrap around the new text field by field text rather than control name
 Gui, Add, Text, yS, This is Control 4				;Add another unnamed Text field
@@ -38,7 +38,7 @@ Gui, Show, , GroupBox Test</pre>
 The "v" option to assign Control ID is not mandatory. You
 may also use the ClassNN name or text of the control.
 
-    Author: dmatch @ AHK forum
+    Original Author: dmatch @ AHK forum
   
     Date: Sept. 5, 2011
   
